@@ -1,7 +1,0 @@
-ros-hydro-hector-object-tracker (0.3.0-0quantal) quantal; urgency=high
-
-  * catkinized stack hector_worldmodel
-
- -- Johannes Meyer <meyer@fsr.tu-darmstadt.de>  Mon, 02 Sep 2013 22:00:00 -0000
-
-
