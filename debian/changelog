@@ -1,0 +1,14 @@
+ros-hydro-hector-worldmodel-msgs (0.3.1-0precise) precise; urgency=high
+
+
+
+ -- Johannes Meyer <meyer@fsr.tu-darmstadt.de>  Sat, 29 Mar 2014 23:00:00 -0000
+
+ros-hydro-hector-worldmodel-msgs (0.3.0-0precise) precise; urgency=high
+
+  * catkinized stack hector_worldmodel
+  * renamed package worldmodel_msgs to hector_worldmodel_msgs
+
+ -- Johannes Meyer <meyer@fsr.tu-darmstadt.de>  Mon, 02 Sep 2013 22:00:00 -0000
+
+
