@@ -162,31 +162,56 @@ void Object::setState(const StateType& state) {
   this->state.state = state;
 }
 
-void Object::intersect(const Eigen::Vector3f& positionB, const Eigen::Matrix3f& covarianceB, float support) {
-  // old cov/covariance is A , new cov/covIn is B
+void Object::intersect(const tf::Pose& poseB, const Eigen::Matrix3f& covarianceB, float support) {
+  Eigen::Vector3f positionB(poseB.getOrigin().x(), poseB.getOrigin().y(), poseB.getOrigin().z());
+  tf::Quaternion orientationB = poseB.getRotation();
+    // old cov/covariance is A , new cov/covIn is B
   float omega = 0.5f;
 
   Eigen::Matrix3f A(covariance.inverse() * omega);
   Eigen::Matrix3f B(covarianceB.inverse() * (1.0f - omega));
+  double infA = 1./covariance.trace();
+  double infB = 1./covarianceB.trace();
 
   covariance = (A + B).inverse();
   position = covariance * (A * position + B * positionB);
+  updateOrientation(orientationB, infB / (infA + infB));
 
   setPosition(position);
   setCovariance(covariance);
   addSupport(support);
 }
 
-void Object::update(const Eigen::Vector3f& positionB, const Eigen::Matrix3f& covarianceB, float support) {
+void Object::update(const tf::Pose& poseB, const Eigen::Matrix3f& covarianceB, float support) {
+  Eigen::Vector3f positionB(poseB.getOrigin().x(), poseB.getOrigin().y(), poseB.getOrigin().z());
+  tf::Quaternion orientationB = poseB.getRotation();
+    // old information is A , new information is B
+
   Eigen::Matrix3f A(covariance.inverse());
   Eigen::Matrix3f B(covarianceB.inverse());
+  double infA = 1./covariance.trace();
+  double infB = 1./covarianceB.trace();
 
   covariance = (A + B).inverse();
   position = covariance * (A * position + B * positionB);
+  updateOrientation(orientationB, infB / (infA + infB));
 
   setPosition(position);
   setCovariance(covariance);
   addSupport(support);
+}
+
+void Object::updateOrientation(const tf::Quaternion& orientationB, double slerp_factor) {
+  // update orientation of objects using low-pass filtering
+  if (parameter(_with_orientation, getClassId())) {
+      tf::Quaternion q(orientation.x(), orientation.y(), orientation.z(), orientation.w());
+      q.slerp(orientationB, slerp_factor);
+      setOrientation(q);
+  }
+  // or simply set new orientation
+  else {
+    setOrientation(orientationB);
+  }
 }
 
 void Object::getVisualization(visualization_msgs::MarkerArray &markers) const {
@@ -290,6 +315,11 @@ ObjectPtr Object::transform(tf::Transformer& tf, const std::string& target_frame
   result->header.frame_id = target_frame;
 
   return result;
+}
+
+double Object::getDistance(const Object &other)
+{
+  return (this->getPosition() - other.getPosition()).norm();
 }
 
 } // namespace hector_object_tracker
