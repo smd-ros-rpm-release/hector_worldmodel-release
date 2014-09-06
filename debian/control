@@ -1,0 +1,12 @@
+Source: ros-indigo-hector-object-tracker
+Section: misc
+Priority: extra
+Maintainer: Johannes Meyer <meyer@fsr.tu-darmstadt.de>
+Build-Depends: debhelper (>= 9.0.0), ros-indigo-catkin, ros-indigo-cmake-modules, ros-indigo-hector-marker-drawing, ros-indigo-hector-nav-msgs, ros-indigo-hector-worldmodel-msgs, ros-indigo-image-geometry, ros-indigo-roscpp, ros-indigo-tf
+Homepage: http://ros.org/wiki/hector_object_tracker
+Standards-Version: 3.9.2
+
+Package: ros-indigo-hector-object-tracker
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-indigo-hector-marker-drawing, ros-indigo-hector-nav-msgs, ros-indigo-hector-worldmodel-msgs, ros-indigo-image-geometry, ros-indigo-roscpp, ros-indigo-tf
+Description: hector_object_tracker is the core package of hector_worldmodel. It listens to percept message from detectors (e.g. heat signatures of persons or recognitions of other objects of interest in the scene) and fuses all information to a single worldmodel state. Objects will be tracked over time and their states can be influenced by a couple of services. The percept to object association problem is solved either automatically based on the Mahalanobis distance, or a unique object_id can be given in the percept message. If a hector_nav_msgs/GetDistanceToObstacle service is available, the object_tracker can optionally deduce the depth of objects in the scene by projection to the nearest obstacle (wall).
