@@ -1,3 +1,28 @@
+## hector_worldmodel (indigo) - 0.3.2-0
+
+The packages in the `hector_worldmodel` repository were released into the `indigo` distro by running `/usr/bin/bloom-release --track indigo --rosdistro indigo --new hector_worldmodel` on `Sat, 06 Sep 2014 11:55:01 -0000`
+
+These packages were released:
+- `hector_object_tracker`
+- `hector_worldmodel`
+- `hector_worldmodel_geotiff_plugins`
+- `hector_worldmodel_msgs`
+
+Version of package(s) in repository `hector_worldmodel`:
+- upstream repository: https://github.com/tu-darmstadt-ros-pkg/hector_worldmodel.git
+- release repository: https://github.com/tu-darmstadt-ros-pkg-gbp/hector_worldmodel-release.git
+- rosdistro version: `null`
+- old version: `null`
+- new version: `0.3.2-0`
+
+Versions of tools used:
+- bloom version: `0.5.11`
+- catkin_pkg version: `0.2.4`
+- rosdep version: `0.10.30`
+- rosdistro version: `0.3.5`
+- vcstools version: `0.1.35`
+
+
 ## hector_worldmodel (hydro) - 0.3.2-0
 
 The packages in the `hector_worldmodel` repository were released into the `hydro` distro by running `/usr/bin/bloom-release --track hydro --rosdistro hydro hector_worldmodel` on `Sat, 06 Sep 2014 11:50:25 -0000`
