@@ -2,6 +2,7 @@
 #define OBJECT_TRACKER_OBJECT_TRACKER_H
 
 #include <ros/ros.h>
+#include <tf/tf.h>
 #include <std_msgs/String.h>
 #include <std_msgs/Float32.h>
 #include <hector_object_tracker/types.h>
@@ -75,8 +76,8 @@ private:
 
   ros::Publisher modelPublisher;
   ros::Publisher modelUpdatePublisher;
-  ros::Publisher poseDebugPublisher;
-  ros::Publisher pointDebugPublisher;
+  ros::Publisher perceptPoseDebugPublisher;
+  ros::Publisher objectPoseDebugPublisher;
   ros::Subscriber modelUpdateSubscriber;
 
   ros::ServiceServer setObjectState;
@@ -85,9 +86,6 @@ private:
   ros::ServiceServer setObjectName;
 
   ros::Timer publishTimer;
-
-  typedef std::pair<ros::ServiceClient,XmlRpc::XmlRpcValue> VerificationService;
-  std::map<std::string,std::map<std::string,std::vector<VerificationService> > > verificationServices;
 
   tf::TransformListener tf;
 
