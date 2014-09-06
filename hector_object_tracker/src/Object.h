@@ -106,8 +106,9 @@ public:
       return this->header.stamp;
     }
 
-    void intersect(const Eigen::Vector3f& position, const Eigen::Matrix3f& covariance, float support);
-    void update(const Eigen::Vector3f& position, const Eigen::Matrix3f& covariance, float support);
+    void intersect(const tf::Pose& poseB, const Eigen::Matrix3f& covarianceB, float support);
+    void update(const tf::Pose& poseB, const Eigen::Matrix3f& covarianceB, float support);
+    void updateOrientation(const tf::Quaternion& orientationB, double slerp_factor);
 
     static void setNamespace(const std::string& ns);
 
@@ -115,6 +116,8 @@ public:
 
     ObjectPtr transform(tf::Transformer& tf, const std::string& target_frame) const;
     ObjectPtr transform(tf::Transformer& tf, const std::string& target_frame, const ros::Time& target_time) const;
+
+    double getDistance(const Object &other);
 
 private:
     ros::NodeHandle nh;
